@@ -2,6 +2,7 @@ const { connection } = require("../db/connection");
 const {
   insertCompanyQuery,
   updateCompanyQuery,
+  deleteQuery,
 } = require("../db/queries/company.queries");
 
 const readCompanyDetails = async () => {
@@ -21,10 +22,15 @@ const readCompanyDetails = async () => {
 const createCompanyDetails = async (companyDetails) => {
   return new Promise((resolve, reject) => {
     connection.query(insertCompanyQuery(companyDetails), (error, elements) => {
+      console.log(insertCompanyQuery(companyDetails));
+      console.log(error, elements);
       if (error) {
         return reject(error);
       }
-      return resolve(elements);
+      if (elements.affectedRows === 1) {
+        return resolve({ message: "Record inserted" });
+      }
+      return reject({ message: "Record not updated" });
     });
     //     companies.create({
     //     company_name: companyDetails.company_name,
@@ -60,16 +66,15 @@ const updateComapanyDetails = async (companyData, companyName) => {
 
 const deleteCompanyDetails = async (companyName) => {
   return new Promise((resolve, reject) => {
-    connection.query(
-      `DELETE FROM xxz8fkuuk6sedzq2.companies
-WHERE company_name='${companyName}';`,
-      (error, elements) => {
-        if (error) {
-          return reject(error);
-        }
-        return resolve(elements);
+    connection.query(deleteQuery(companyName), (error, elements) => {
+      if (error) {
+        return reject(error);
       }
-    );
+      if (elements.affectedRows === 1) {
+        return resolve({ message: "Record deleted" });
+      }
+      return reject({ message: "Record not deleted" });
+    });
   });
 };
 

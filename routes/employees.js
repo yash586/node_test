@@ -23,16 +23,20 @@ module.exports = function (app) {
     }
   });
 
-  app.patch("/employees", async function (request, response) {
-    try {
-      const result = await employeeController.changeEmployeeDetails(
-        request.body
-      );
-      response.json(result);
-    } catch (error) {
-      response.json(error);
+  app.patch(
+    "/employees/:emp_company_detail?",
+    async function (request, response) {
+      try {
+        const result = await employeeController.changeEmployeeDetails(
+          request.body,
+          request.params.emp_company_detail
+        );
+        response.json(result);
+      } catch (error) {
+        response.json(error);
+      }
     }
-  });
+  );
 
   app.delete(
     "/employees/:emp_company_name?",

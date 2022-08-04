@@ -8,11 +8,17 @@ const insertEmpQuery = (empQuery) => {
 VALUES('${empQuery.emp_first_name}', '${empQuery.emp_last_name}', '${empQuery.emp_company_detail}', '${empQuery.emp_email}','${empQuery.emp_phone_number}');`;
 };
 
-// const deleteQuery = (delEmp) => {
-//   return `delete from employees where emp_company_detail ='${delEmp.emp_company_detail}';`;
-// };
+const deleteQuery = (deEmp) => {
+  return `Delete from employees WHERE emp_company_detail ='${deEmp}'`;
+};
 
+const updateQuery = (empdata, employee) => {
+  return `UPDATE xxz8fkuuk6sedzq2.employees
+SET emp_first_name='${empdata.emp_first_name}', emp_last_name='${empdata.emp_last_name}', emp_email='${empdata.emp_email}', emp_phone_number= '${empdata.emp_phone_number}' WHERE emp_company_detail= '${employee}'`;
+};
 module.exports = {
   readEmpQuery,
   insertEmpQuery,
+  updateQuery,
+  deleteQuery,
 };

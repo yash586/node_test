@@ -6,8 +6,13 @@ const updateCompanyQuery = (updateQuery, companyName) => {
  SET  company_email='${updateQuery.company_email}', company_website='${updateQuery.company_website}'
 WHERE company_name='${companyName}'`;
 };
+const deleteQuery = (companyName) => {
+  return `DELETE FROM xxz8fkuuk6sedzq2.companies
+WHERE company_name='${companyName}';`;
+};
 
 module.exports = {
   insertCompanyQuery,
   updateCompanyQuery,
+  deleteQuery,
 };
